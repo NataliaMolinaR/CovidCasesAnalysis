@@ -7,11 +7,14 @@
 --FROM CovidAnalysisProject..CovidDeath
 --Order by 1,2
 
- --1. TOTAL CASES VS TOTAL DEATH.
-SELECT Location, date, total_cases, total_deaths,(total_deaths/total_cases)*100 as DeathPercentage
+ --1. PERCENT TOTAL DEATH.
+SELECT   SUM(new_cases) as totalCases,SUM(new_deaths) as totalDeath, SUM(new_deaths)/SUM(new_cases)  * 100  as DeathPercentage 
 FROM CovidAnalysisProject..CovidDeath
-where continent is not null 
+where new_cases <> 0 and continent is not null 
+--Group by date
+-- where Location like '%States%'
 Order by 1,2
+
 
 -- Double checking metrics with online sources. Results are pretty close to current stadistics. 
 
@@ -27,7 +30,7 @@ Order by 1,2
 SELECT Location,  SUM(total_deaths) AS totalDeathCount
 FROM CovidAnalysisProject..CovidDeath
 where continent is  null
-and location not in ('World', 'European Union', 'International')
+and location not in ('World', 'European Union', 'International', 'High income', 'Upper middle income', 'Low income', ' Lower middle income')
 Group by location
 Order by totalDeathCount DESC
 
@@ -75,7 +78,7 @@ Order by 1,2
 SELECT Location,  SUM(total_deaths) AS totalDeathCount
 FROM CovidAnalysisProject..CovidDeath
 where continent is  null
-and location not in ('World', 'European Union', 'International')
+and location not in ('World', 'European Union', 'International',  'High income', 'Upper middle income', 'Low income', ' Lower middle income')
 Group by location
 Order by totalDeathCount DESC
 
