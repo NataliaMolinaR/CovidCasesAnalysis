@@ -30,7 +30,7 @@ Order by 1,2
 SELECT Location,  SUM(total_deaths) AS totalDeathCount
 FROM CovidAnalysisProject..CovidDeath
 where continent is  null
-and location not in ('World', 'European Union', 'International', 'High income', 'Upper middle income', 'Low income', ' Lower middle income')
+and location not in ('World', 'European Union', 'International', 'High income', 'Upper middle income', 'Low income', 'Lower middle income')
 Group by location
 Order by totalDeathCount DESC
 
@@ -46,7 +46,7 @@ Order by PercentPopulationInfected DESC
 
 SELECT Location, population , date, MAX(total_cases) AS HighestInfectionCount, MAX((total_cases/population)*100) as PercentPopulationInfected
 FROM CovidAnalysisProject..CovidDeath
-Group by location, population
+Group by location, population, date 
 Order by PercentPopulationInfected DESC
 
 
